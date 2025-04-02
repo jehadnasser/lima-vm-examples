@@ -1,5 +1,8 @@
 # Example: Run K3s in an Ubuntu VM with Lima
 
+## How to Install and Use Lima
+Check out my article on Medium [here](https://medium.com/@jehadnasser/sick-of-running-vagrant-on-apple-silicon-meet-lima-efc41994bb21)
+
 ## How to start
 ```sh
 # start the VM
