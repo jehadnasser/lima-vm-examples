@@ -1,0 +1,49 @@
+images:
+  - location: "https://cloud-images.ubuntu.com/releases/noble/release-20250313/ubuntu-24.04-server-cloudimg-arm64.img"
+    arch: "aarch64"
+
+cpus: 4
+memory: "4GiB"
+disk: "5GiB"
+
+mounts:
+  - location: "~/workspace/lima/lima-vm-examples/k3s-cluster/lima-data-host" # can't be a relative path
+    mountPoint: /lima-data-vm
+    writable: true
+
+portForwards:
+  - guestPort: 6443
+    hostPort: 6443
+
+provision:
+  # scripts must be in the mounted dir
+  - mode: system
+    script: |
+      bash /lima-data-vm/system-k3s-setup.sh
+  - mode: user
+    script: |
+      bash /lima-data-vm/user-configs.sh
+
+# Installs and enables containerd system-wide (required and defaults for K3s)
+containerd:
+  system: true
+
+# Optional: set environment variables like TERM
+env:
+  TERM: xterm-256color # For richer color support
+  EDITOR: nano # Set default editor
+
+
+message: |
+  🎉 Your Lima VM is ready!
+
+  ✅ Kubernetes k3s cluster is running inside the VM.
+  📁 Your kubeconfig is available in the VM at: /lima-data-vm/kubeconfig.yaml
+
+  👉 From your Latop, use kubeconfig.yaml in the the mounted dir: /lima-data-host/kubeconfig.yaml
+      export KUBECONFIG=~/.kube/config:./lima-data-host/kubeconfig.yaml
+      kubectl config use-context lima-k3s-cluster
+      kubectl get nodes
+
+  💡 To SSH into the VM manually:
+     limactl shell lima-vm
