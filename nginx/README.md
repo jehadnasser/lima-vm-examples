@@ -1,4 +1,4 @@
-# Example: Run K3s in an Ubuntu VM with Lima
+# Example: Run Nginx in an Ubuntu VM with Lima
 
 ## How to Install and Use Lima
 Check out my article on Medium [here](https://medium.com/@jehadnasser/sick-of-running-vagrant-on-apple-silicon-meet-lima-efc41994bb21)
@@ -16,10 +16,16 @@ limactl stop -f lima-vm-nginx && limactl delete lima-vm-nginx
 ```
 
 ## Use kubeconfig file in your host:
-From your Latop, use kubeconfig.yaml in the the mounted directory: `/lima-data-host/kubeconfig.yaml`
-```sh
-curl localhost:8080
-```
+- Test Nginx inside the VM:
+  ```sh
+  curl localhost:80
+  ```
+
+- Test Nginx inside the host:
+  ```sh
+  curl localhost:8080
+  ```
+
 
 ## Debugging
 - The logs of provisioning the VM can be found inside the vm:
