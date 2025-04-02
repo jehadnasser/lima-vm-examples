@@ -45,5 +45,5 @@ message: |
       kubectl config use-context lima-k3s-cluster
       kubectl get nodes
 
-  💡 To SSH into the VM manually:
+  💡 To SSH into the VM:
      limactl shell lima-vm
